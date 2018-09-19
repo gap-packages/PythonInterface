@@ -3,32 +3,23 @@
  */
 
 #include "src/compiled.h"          /* GAP headers */
+#include <Python.h>
 
-
-Obj TestCommand(Obj self)
+Obj FuncPyRun_SimpleString(Obj self, Obj command)
 {
-    return INTOBJ_INT(42);
-}
-
-Obj TestCommandWithParams(Obj self, Obj param, Obj param2)
-{
-    /* simply return the first parameter */
-    return param;
+    Int res;
+    if (IS_STRING_REP(command)) {
+        return INTOBJ_INT(PyRun_SimpleString(CSTR_STRING(command)));
+    }
+    return Fail;
 }
 
 
 typedef Obj (* GVarFunc)(/*arguments*/);
 
-#define GVAR_FUNC_TABLE_ENTRY(srcfile, name, nparam, params) \
-  {#name, nparam, \
-   params, \
-   (GVarFunc)name, \
-   srcfile ":Func" #name }
-
 // Table of functions to export
 static StructGVarFunc GVarFuncs [] = {
-    GVAR_FUNC_TABLE_ENTRY("PythonInterface.c", TestCommand, 0, ""),
-    GVAR_FUNC_TABLE_ENTRY("PythonInterface.c", TestCommandWithParams, 2, "param, param2"),
+    GVAR_FUNC(PyRun_SimpleString, 1, "command"),
 
 	{ 0 } /* Finish with an empty entry */
 
@@ -39,6 +30,9 @@ static StructGVarFunc GVarFuncs [] = {
 */
 static Int InitKernel( StructInitInfo *module )
 {
+    /* Initialize python */
+    Py_Initialize();
+
     /* init filters and functions                                          */
     InitHdlrFuncsFromTable( GVarFuncs );
 
