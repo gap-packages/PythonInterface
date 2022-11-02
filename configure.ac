@@ -11,7 +11,7 @@ dnl ##
 AC_PREREQ([2.68])
 AC_INIT([PythonInterface], m4_esyscmd([tr -d '\n' < VERSION]))
 AC_CONFIG_SRCDIR([src/PythonInterface.c])
-AC_CONFIG_HEADER([src/pkgconfig.h:cnf/pkgconfig.h.in])
+AC_CONFIG_HEADERS([src/pkgconfig.h:cnf/pkgconfig.h.in])
 AC_CONFIG_MACRO_DIR([cnf/m4])
 AC_CONFIG_AUX_DIR([cnf])
 
