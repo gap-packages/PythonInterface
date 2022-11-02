@@ -2,7 +2,7 @@
  * PythonInterface: calling python code  from GAP. Yes. I went there.
  */
 
-#include "src/compiled.h"          /* GAP headers */
+#include "compiled.h"          /* GAP headers */
 #include <Python.h>
 
 Obj FuncPyRun_SimpleString(Obj self, Obj command)
