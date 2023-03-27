@@ -9,7 +9,7 @@ dnl ##
 dnl ## Setup autoconf
 dnl ##
 AC_PREREQ([2.68])
-AC_INIT([PythonInterface], m4_esyscmd([tr -d '\n' < VERSION]))
+AC_INIT([PythonInterface], [package])
 AC_CONFIG_SRCDIR([src/PythonInterface.c])
 AC_CONFIG_HEADERS([src/pkgconfig.h:cnf/pkgconfig.h.in])
 AC_CONFIG_MACRO_DIR([cnf/m4])
@@ -57,11 +57,6 @@ case $host_os in
          * ) CYGWIN=no;;
 esac
 AM_CONDITIONAL([SYS_IS_CYGWIN], [test "$CYGWIN" = "yes"])
-
-dnl ##
-dnl ## Rebuild configure if VERSION file changes
-dnl ##
-AC_SUBST([CONFIG_STATUS_DEPENDENCIES], ['$(top_srcdir)/VERSION'])
 
 dnl ##
 dnl ## Output everything
